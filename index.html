@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Online randevu sistemi — kolayca randevu alın, yönetin ve takip edin.">
+  <meta property="og:title" content="Wesa Klinik — Akıllı Randevu Sistemi">
+  <meta property="og:description" content="Modern ve hızlı online randevu yönetim platformu.">
+  <title>Wesa — Randevu Sistemi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <span class="logo">Wesa<span style="color:#06b6d4"> Klinik</span></span>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">Ana Sayfa</a></li>
+      <li><a href="#services">Hizmetler</a></li>
+      <li><a href="#booking">Randevu Al</a></li>
+      <li><a href="#appointments">Randevularım</a></li>
+      <li><a href="#contact">İletişim</a></li>
+    </ul>
+    <button class="nav-cta" onclick="scrollToBooking()">Randevu Al</button>
+    <button class="hamburger" id="hamburger" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> Online Randevu Açık</div>
+      <h1>Randevunuzu <span class="gradient-text">Kolayca</span> Oluşturun</h1>
+      <p>Birkaç tıklama ile istediğiniz hizmete randevu alın. Hızlı, güvenli ve 7/24 erişilebilir.</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="scrollToBooking()">Hemen Randevu Al</button>
+        <button class="btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Hizmetleri İncele</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><h3>2,500+</h3><p>Mutlu Müşteri</p></div>
+        <div class="stat"><h3>15+</h3><p>Uzman Kadro</p></div>
+        <div class="stat"><h3>4.9 ★</h3><p>Müşteri Puanı</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header">
+        <h2>Hizmetlerimiz</h2>
+        <p>Size en uygun hizmeti seçin ve hemen randevunuzu oluşturun</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card" onclick="selectService('Genel Muayene')">
+          <div class="service-icon">🩺</div>
+          <h3>Genel Muayene</h3>
+          <p>Kapsamlı sağlık kontrolü ve genel değerlendirme hizmeti.</p>
+          <span class="duration">⏱ 30 dakika</span>
+        </div>
+        <div class="service-card" onclick="selectService('Diş Bakımı')">
+          <div class="service-icon">🦷</div>
+          <h3>Diş Bakımı</h3>
+          <p>Profesyonel diş temizliği, dolgu ve estetik uygulamalar.</p>
+          <span class="duration">⏱ 45 dakika</span>
+        </div>
+        <div class="service-card" onclick="selectService('Psikolojik Danışmanlık')">
+          <div class="service-icon">🧠</div>
+          <h3>Psikolojik Danışmanlık</h3>
+          <p>Bireysel terapi ve psikolojik destek seansları.</p>
+          <span class="duration">⏱ 50 dakika</span>
+        </div>
+        <div class="service-card" onclick="selectService('Göz Muayenesi')">
+          <div class="service-icon">👁️</div>
+          <h3>Göz Muayenesi</h3>
+          <p>Detaylı göz kontrolü ve görme testi uygulamaları.</p>
+          <span class="duration">⏱ 30 dakika</span>
+        </div>
+        <div class="service-card" onclick="selectService('Fizik Tedavi')">
+          <div class="service-icon">💪</div>
+          <h3>Fizik Tedavi</h3>
+          <p>Rehabilitasyon ve fiziksel terapi programları.</p>
+          <span class="duration">⏱ 60 dakika</span>
+        </div>
+        <div class="service-card" onclick="selectService('Beslenme Danışmanlığı')">
+          <div class="service-icon">🥗</div>
+          <h3>Beslenme Danışmanlığı</h3>
+          <p>Kişiye özel diyet ve beslenme programı oluşturma.</p>
+          <span class="duration">⏱ 40 dakika</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section id="booking">
+    <div class="container">
+      <div class="section-header">
+        <h2>Randevu Oluştur</h2>
+        <p>Tarih ve saat seçin, bilgilerinizi girin</p>
+      </div>
+      <div class="booking-layout">
+        <!-- Calendar -->
+        <div>
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <button id="prevMonth" aria-label="Önceki ay">‹</button>
+              <h3 id="calendarTitle"></h3>
+              <button id="nextMonth" aria-label="Sonraki ay">›</button>
+            </div>
+            <div class="calendar-weekdays">
+              <span>Pzt</span><span>Sal</span><span>Çar</span><span>Per</span><span>Cum</span><span>Cmt</span><span>Paz</span>
+            </div>
+            <div class="calendar-days" id="calendarDays"></div>
+          </div>
+          <div class="time-slots-container" id="timeSlotsContainer" style="display:none">
+            <h4 id="timeSlotsTitle">Müsait Saatler</h4>
+            <div class="time-slots" id="timeSlots"></div>
+          </div>
+        </div>
+        <!-- Form -->
+        <div class="booking-form">
+          <h3>Randevu Bilgileri</h3>
+          <div class="selected-info" id="selectedInfo"></div>
+          <form id="bookingForm">
+            <div class="form-group">
+              <label for="service">Hizmet</label>
+              <select id="service" required>
+                <option value="">Hizmet seçin...</option>
+                <option value="Genel Muayene">🩺 Genel Muayene</option>
+                <option value="Diş Bakımı">🦷 Diş Bakımı</option>
+                <option value="Psikolojik Danışmanlık">🧠 Psikolojik Danışmanlık</option>
+                <option value="Göz Muayenesi">👁️ Göz Muayenesi</option>
+                <option value="Fizik Tedavi">💪 Fizik Tedavi</option>
+                <option value="Beslenme Danışmanlığı">🥗 Beslenme Danışmanlığı</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">Ad</label>
+                <input type="text" id="firstName" placeholder="Adınız" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Soyad</label>
+                <input type="text" id="lastName" placeholder="Soyadınız" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" placeholder="05XX XXX XX XX" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-posta</label>
+              <input type="email" id="email" placeholder="ornek@mail.com" required>
+            </div>
+            <div class="form-group">
+              <label for="notes">Not (Opsiyonel)</label>
+              <textarea id="notes" placeholder="Eklemek istediğiniz bir not var mı?"></textarea>
+            </div>
+            <button type="submit" class="btn-submit" id="submitBtn" disabled>Randevuyu Onayla</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Appointments -->
+  <section id="appointments">
+    <div class="container">
+      <div class="section-header">
+        <h2>Randevularım</h2>
+        <p>Oluşturduğunuz randevuları buradan takip edebilirsiniz</p>
+      </div>
+      <div class="appointment-list" id="appointmentList">
+        <div class="empty-state" id="emptyState">Henüz randevunuz bulunmamaktadır.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2>İletişim</h2>
+        <p>Bize ulaşmak için aşağıdaki kanalları kullanabilirsiniz</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <h3>Adres</h3>
+          <p>Atatürk Cad. No:42<br>İstanbul, Türkiye</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📞</div>
+          <h3>Telefon</h3>
+          <p>+90 123 456 78 90<br>Pzt-Cum: 09:00-18:00</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">✉️</div>
+          <h3>E-posta</h3>
+          <p>info@wesaklinik.com<br>destek@wesaklinik.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <span class="logo">Wesa<span style="color:#06b6d4"> Klinik</span></span>
+      <div class="footer-links">
+        <a href="#services">Hizmetler</a>
+        <a href="#booking">Randevu</a>
+        <a href="#contact">İletişim</a>
+      </div>
+      <p>&copy; 2026 Wesa Klinik. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Confirm Modal -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal">
+      <h3>✅ Randevu Onayı</h3>
+      <p id="confirmText"></p>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal()" style="font-size:0.85rem">İptal</button>
+        <button class="btn-primary" onclick="confirmBooking()" style="font-size:0.85rem">Onayla</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
